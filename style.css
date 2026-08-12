@@ -238,3 +238,57 @@ body {
   cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px var(--accent-glow); transition: 0.2s;
 }
 .btn-primary:active { transform: scale(0.98); }
+/* ====================================================
+   АДАПТИВНОСТЬ ПОД ПК / ПЛАНШЕТЫ (Экран шире 768px)
+==================================================== */
+
+@media (min-width: 768px) {
+  /* 1. Расширяем контейнер для экрана компьютера */
+  .app-container {
+    max-width: 900px; /* Было 480px, стало широким */
+    height: auto;
+    min-height: 600px;
+    max-height: 90vh;
+    border-radius: 20px; /* Красивое скругление углов на ПК */
+    margin: 20px;
+    
+    /* 2. Включаем сетку из 2 колонок */
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* Слева календарь пошире, справа события */
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header   header"
+      "calendar events";
+  }
+
+  /* 3. Распределяем блоки по колонкам */
+  .header {
+    grid-area: header;
+  }
+
+  .calendar-wrapper {
+    grid-area: calendar;
+    border-right: 1px solid var(--border-color); /* Разделительная полоса по центру */
+    padding: 30px;
+  }
+
+  .events-section {
+    grid-area: events;
+    padding: 30px;
+    overflow-y: auto;
+  }
+
+  /* 4. Увеличиваем цифры в календаре для удобства мышкой */
+  .day {
+    font-size: 18px;
+    border-radius: 14px;
+  }
+
+  /* 5. Кнопка + (FAB) становится удобнее в правом углу */
+  .fab {
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+  }
+}
