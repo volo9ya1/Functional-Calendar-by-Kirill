@@ -35,9 +35,10 @@ The project supports two neon themes with instant switching:
 1. Clone the repository:
    ```bash
    git clone [https://github.com/your-username/functional-calendar.git](https://github.com/your-username/functional-calendar.git)
+   
+    
 
-   # 🌟 Functional Calendar by Kirill
-
+# 🌟 Functional Calendar by Kirill
 Современный, стильный и минималистичный интерактивный календарь с элементами геймификации в стиле Duolingo и адаптивным дизайном. Разработано с акцентом на чистый функционал и кастомную эстетику.
 
 ---
