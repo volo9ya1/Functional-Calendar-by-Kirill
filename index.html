@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Functional Calendar by Kirill</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Иконки FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body data-theme="dark">
 
   <div class="app-container">
-    <!-- Шапка (Duolingo Style) -->
     <header class="header">
       <div class="header-top">
         <div class="user-info">
@@ -20,6 +18,13 @@
         </div>
         
         <div class="header-actions">
+          <!-- Переключатель языков -->
+          <select id="lang-select" class="lang-select" title="Выбрать язык">
+            <option value="ru">RU</option>
+            <option value="en">EN</option>
+            <option value="uz">UZ</option>
+          </select>
+
           <div class="streak" title="Дней без пропусков">
             <i class="fa-solid fa-fire"></i> <span id="streak-count">12</span>
           </div>
@@ -29,13 +34,11 @@
         </div>
       </div>
       
-      <!-- Прогресс-бар продуктивности -->
       <div class="progress-container">
         <div class="progress-bar" id="progress-bar" style="width: 65%;"></div>
       </div>
     </header>
 
-    <!-- Основная сетка календаря -->
     <main class="calendar-wrapper">
       <div class="calendar-header">
         <button id="prev-month" class="nav-btn"><i class="fa-solid fa-chevron-left"></i></button>
@@ -43,30 +46,24 @@
         <button id="next-month" class="nav-btn"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       
-      <div class="weekdays">
-        <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+      <div class="weekdays" id="weekdays-container">
+        <!-- JS заполняет дни недели под выбранный язык -->
       </div>
       
-      <div class="calendar-grid" id="calendar-grid">
-        <!-- JS генерирует дни здесь -->
-      </div>
+      <div class="calendar-grid" id="calendar-grid"></div>
     </main>
 
-    <!-- Список событий выбранного дня -->
     <section class="events-section">
-      <h3 id="selected-date-title">События на сегодня</h3>
-      <div id="events-list" class="events-list">
-        <!-- JS генерирует карточки событий здесь -->
-      </div>
+      <h3 id="selected-date-title">Планы на сегодня</h3>
+      <div id="events-list" class="events-list"></div>
     </section>
 
-    <!-- Плавающая кнопка добавления -->
     <button id="fab-add" class="fab">
       <i class="fa-solid fa-plus"></i>
     </button>
   </div>
 
-  <!-- Всплывающее окно (Модалка) -->
+  <!-- Модальное окно -->
   <div class="modal-overlay" id="event-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,39 +75,39 @@
         <input type="hidden" id="event-id">
         
         <div class="input-group">
-          <label>Что планируем?</label>
+          <label id="label-name">Что планируем?</label>
           <input type="text" id="event-name" required placeholder="Встреча по проекту">
         </div>
         
         <div class="input-row">
           <div class="input-group">
-            <label>Дата</label>
+            <label id="label-date">Дата</label>
             <input type="date" id="event-date" required>
           </div>
           <div class="input-group">
-            <label>Время</label>
+            <label id="label-time">Время</label>
             <input type="time" id="event-time" required>
           </div>
         </div>
         
         <div class="input-group">
-          <label>Место (Где?)</label>
+          <label id="label-location">Место (Где?)</label>
           <input type="text" id="event-location" placeholder="Кофейня 'Неон'">
         </div>
         
         <div class="input-group">
-          <label>Участники (С кем?)</label>
+          <label id="label-people">Участники (С кем?)</label>
           <input type="text" id="event-people" placeholder="Алексей, Марина">
         </div>
         
         <div class="input-group">
           <label class="checkbox-label">
             <input type="checkbox" id="event-notify" checked>
-            Уведомить за 30 минут
+            <span id="label-notify-text">Уведомить за 30 минут</span>
           </label>
         </div>
         
-        <button type="submit" class="btn-primary">Сохранить</button>
+        <button type="submit" id="btn-save" class="btn-primary">Сохранить</button>
       </form>
     </div>
   </div>
