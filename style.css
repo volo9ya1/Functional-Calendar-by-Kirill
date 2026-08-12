@@ -4,7 +4,7 @@
   --border-color: #27272a;
   --text-main: #f4f4f5;
   --text-muted: #a1a1aa;
-  --accent: #ff7b00;
+  --accent: #ff7b00; /* Темная тема: неоново-оранжевый */
 }
 
 [data-theme="light"] {
@@ -13,7 +13,7 @@
   --border-color: #e4e4e7;
   --text-main: #18181b;
   --text-muted: #71717a;
-  --accent: #ff7b00;
+  --accent: #0066ff; /* Светлая тема: неоново-синий */
 }
 
 body {
@@ -27,6 +27,7 @@ body {
   min-height: 100vh;
   padding: 10px;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-container {
@@ -38,6 +39,7 @@ body {
   padding: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .header {
@@ -92,6 +94,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s;
 }
 
 .btn-icon {
@@ -114,7 +117,7 @@ body {
 .progress-bar {
   height: 100%;
   background: var(--accent);
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .calendar-wrapper {
@@ -168,7 +171,7 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   position: relative;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(128, 128, 128, 0.05);
   transition: background 0.2s;
 }
 
@@ -266,7 +269,7 @@ body {
   padding: 12px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, background-color 0.3s ease;
 }
 
 .fab:hover {
@@ -288,6 +291,8 @@ body {
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 1000;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -299,37 +304,41 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  padding: 24px;
-  width: 90%;
+  padding: 20px;
+  width: 100%;
   max-width: 400px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   color: var(--text-main);
   box-sizing: border-box;
+  text-align: left;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .modal-header h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
 .input-group {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  text-align: left;
 }
 
 .input-group label {
   margin-bottom: 6px;
   font-size: 0.85rem;
   color: var(--text-muted);
+  text-align: left;
 }
 
 .input-group input[type="text"],
@@ -353,7 +362,7 @@ body {
 
 .input-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .checkbox-label {
@@ -363,6 +372,7 @@ body {
   cursor: pointer;
   color: var(--text-main);
   font-size: 0.9rem;
+  text-align: left;
 }
 
 .btn-primary {
@@ -375,10 +385,27 @@ body {
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.2s;
+  transition: opacity 0.2s, background-color 0.3s ease;
   margin-top: 10px;
+  box-sizing: border-box;
 }
 
 .btn-primary:hover {
   opacity: 0.9;
+}
+
+/* --- АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ (@MEDIA) --- */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  
+  .app-container {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .modal-content {
+    padding: 16px;
+  }
 }
