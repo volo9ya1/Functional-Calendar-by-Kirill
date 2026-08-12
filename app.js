@@ -72,7 +72,7 @@ function renderCalendar(year, month) {
     // Подсветка текущего дня
     if (cellDateStr === todayDateString) {
       dayCell.classList.add('current-day');
-      if(!selectedDateGlobal) { // По умолчанию выбираем сегодняшний день
+      if(!selectedDateGlobal) {
           selectedDateGlobal = cellDateStr;
       }
     }
@@ -92,7 +92,7 @@ function renderCalendar(year, month) {
     // Клик по дню
     dayCell.addEventListener('click', () => {
       selectedDateGlobal = cellDateStr;
-      renderCalendar(year, month); // Перерисовываем для обновления рамки .active-day
+      renderCalendar(year, month);
       renderEventsList(cellDateStr);
     });
     
@@ -113,12 +113,11 @@ nextMonthBtn.addEventListener('click', () => {
 });
 
 
-// --- 3. ВЫВОД СПИСКА СОБЫТИЙ ---
+// --- 3. ВЫВОД СПИСКА СОБЫТИЙ И КНОПКА МУСОРКИ ---
 const eventsListContainer = document.getElementById('events-list');
 const selectedDateTitle = document.getElementById('selected-date-title');
 
 function renderEventsList(dateStr) {
-  // Выводим красивый заголовок даты
   const dateObj = new Date(dateStr);
   selectedDateTitle.textContent = `Планы на ${dateObj.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'})}`;
 
@@ -130,7 +129,6 @@ function renderEventsList(dateStr) {
     return;
   }
 
-  // Сортируем по времени
   dayEvents.sort((a, b) => a.time.localeCompare(b.time));
 
   dayEvents.forEach(ev => {
@@ -138,18 +136,39 @@ function renderEventsList(dateStr) {
     card.classList.add('event-card');
     
     card.innerHTML = `
-      <h4>${ev.title}</h4>
-      <div class="event-details">
-        <span><i class="fa-regular fa-clock"></i> ${ev.time}</span>
-        ${ev.location ? `<span><i class="fa-solid fa-location-dot"></i> ${ev.location}</span>` : ''}
-        ${ev.people ? `<span><i class="fa-solid fa-user-group"></i> ${ev.people}</span>` : ''}
+      <div class="event-info">
+        <h4>${ev.title}</h4>
+        <div class="event-details">
+          <span><i class="fa-regular fa-clock"></i> ${ev.time}</span>
+          ${ev.location ? `<span><i class="fa-solid fa-location-dot"></i> ${ev.location}</span>` : ''}
+          ${ev.people ? `<span><i class="fa-solid fa-user-group"></i> ${ev.people}</span>` : ''}
+        </div>
       </div>
+      <button class="delete-btn" title="Удалить событие">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
     `;
     
-    // При клике на карточку можно открывать редактирование
-    card.addEventListener('click', () => editEvent(ev));
+    // Клик по карточке открывает редактирование
+    card.querySelector('.event-info').addEventListener('click', () => editEvent(ev));
+    
+    // Клик по мусорке удаляет задачу
+    const deleteBtn = card.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteEvent(ev.id);
+    });
+
     eventsListContainer.appendChild(card);
   });
+}
+
+// Функция удаления
+function deleteEvent(id) {
+  events = events.filter(ev => ev.id !== id);
+  localStorage.setItem('calendarEvents', JSON.stringify(events));
+  renderCalendar(displayedYear, displayedMonth);
+  renderEventsList(selectedDateGlobal);
 }
 
 
@@ -175,7 +194,6 @@ function closeModal() {
 }
 
 fabAddBtn.addEventListener('click', () => {
-    // Открываем модалку на выбранный день
     openModal(selectedDateGlobal || formatDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 });
 closeModalBtn.addEventListener('click', closeModal);
@@ -183,7 +201,6 @@ modalOverlay.addEventListener('click', (e) => {
   if (e.target === modalOverlay) closeModal();
 });
 
-// Редактирование существующего события
 function editEvent(ev) {
     document.getElementById('modal-title').textContent = 'Редактировать';
     document.getElementById('event-id').value = ev.id;
@@ -197,7 +214,6 @@ function editEvent(ev) {
     openModal();
 }
 
-// Сохранение события
 eventForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -219,10 +235,8 @@ eventForm.addEventListener('submit', (e) => {
   }
 
   localStorage.setItem('calendarEvents', JSON.stringify(events));
-  
   closeModal();
   
-  // Обновляем визуал на выбранную дату
   selectedDateGlobal = newEvent.date;
   const newDateObj = new Date(newEvent.date);
   displayedYear = newDateObj.getFullYear();
