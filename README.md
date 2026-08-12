@@ -34,7 +34,7 @@ The project supports two neon themes with instant switching:
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/functional-calendar.git](https://github.com/your-username/functional-calendar.git)
+   https://volo9ya1.github.io/Functional-Calendar-by-Kirill/
    
     
 
@@ -72,4 +72,4 @@ The project supports two neon themes with instant switching:
 
 1. Склонируй репозиторий или скачай архив:
    ```bash
-   git clone [https://github.com/твои-репозиторий/functional-calendar.git](https://github.com/твои-репозиторий/functional-calendar.git)
+   https://volo9ya1.github.io/Functional-Calendar-by-Kirill/
