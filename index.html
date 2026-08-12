@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Functional Calendar by Kirill</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Иконки FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="dark">
+
+  <div class="app-container">
+    <!-- Шапка (Duolingo Style) -->
+    <header class="header">
+      <div class="header-top">
+        <div class="user-info">
+          <div class="avatar">K</div> 
+          <h1 class="app-title">Functional Calendar <br><span>by Kirill</span></h1>
+        </div>
+        
+        <div class="header-actions">
+          <div class="streak" title="Дней без пропусков">
+            <i class="fa-solid fa-fire"></i> <span id="streak-count">12</span>
+          </div>
+          <button id="theme-toggle" class="btn-icon" title="Сменить тему">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Прогресс-бар продуктивности -->
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar" style="width: 65%;"></div>
+      </div>
+    </header>
+
+    <!-- Основная сетка календаря -->
+    <main class="calendar-wrapper">
+      <div class="calendar-header">
+        <button id="prev-month" class="nav-btn"><i class="fa-solid fa-chevron-left"></i></button>
+        <h2 id="current-month">Август 2026</h2>
+        <button id="next-month" class="nav-btn"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      
+      <div class="weekdays">
+        <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+      </div>
+      
+      <div class="calendar-grid" id="calendar-grid">
+        <!-- JS генерирует дни здесь -->
+      </div>
+    </main>
+
+    <!-- Список событий выбранного дня -->
+    <section class="events-section">
+      <h3 id="selected-date-title">События на сегодня</h3>
+      <div id="events-list" class="events-list">
+        <!-- JS генерирует карточки событий здесь -->
+      </div>
+    </section>
+
+    <!-- Плавающая кнопка добавления -->
+    <button id="fab-add" class="fab">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+
+  <!-- Всплывающее окно (Модалка) -->
+  <div class="modal-overlay" id="event-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Новое событие</h3>
+        <button id="close-modal" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      
+      <form id="event-form">
+        <input type="hidden" id="event-id">
+        
+        <div class="input-group">
+          <label>Что планируем?</label>
+          <input type="text" id="event-name" required placeholder="Встреча по проекту">
+        </div>
+        
+        <div class="input-row">
+          <div class="input-group">
+            <label>Дата</label>
+            <input type="date" id="event-date" required>
+          </div>
+          <div class="input-group">
+            <label>Время</label>
+            <input type="time" id="event-time" required>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Место (Где?)</label>
+          <input type="text" id="event-location" placeholder="Кофейня 'Неон'">
+        </div>
+        
+        <div class="input-group">
+          <label>Участники (С кем?)</label>
+          <input type="text" id="event-people" placeholder="Алексей, Марина">
+        </div>
+        
+        <div class="input-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="event-notify" checked>
+            Уведомить за 30 минут
+          </label>
+        </div>
+        
+        <button type="submit" class="btn-primary">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
