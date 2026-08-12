@@ -1,6 +1,4 @@
-/* --- ЦВЕТОВЫЕ ТЕМЫ --- */
 :root {
-  /* Светлая тема (Бело-неоновый синий) */
   --bg-color: #f0f4f8;
   --surface-color: #ffffff;
   --text-main: #111827;
@@ -11,7 +9,6 @@
 }
 
 [data-theme="dark"] {
-  /* Тёмная тема (Черно-неоновый оранжевый) */
   --bg-color: #050505;
   --surface-color: #121212;
   --text-main: #f9fafb;
@@ -21,7 +18,6 @@
   --border-color: #2a2a2a;
 }
 
-/* --- БАЗА --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -40,7 +36,7 @@ body {
 
 .app-container {
   width: 100%;
-  max-width: 480px; /* Оптимально для мобильных телефонов */
+  max-width: 480px;
   background-color: var(--surface-color);
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   position: relative;
@@ -50,7 +46,6 @@ body {
   overflow: hidden;
 }
 
-/* --- ШАПКА --- */
 .header {
   padding: 20px;
   border-bottom: 1px solid var(--border-color);
@@ -80,17 +75,34 @@ body {
 .app-title { font-size: 16px; line-height: 1.2; }
 .app-title span { font-size: 12px; color: var(--text-muted); font-weight: normal; }
 
-.header-actions { display: flex; align-items: center; gap: 15px; }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* Стиль селектора языков */
+.lang-select {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s;
+}
+.lang-select:hover {
+  border-color: var(--accent);
+}
 
 .streak {
   font-weight: bold; color: var(--accent);
   text-shadow: var(--accent-glow);
-  display: flex; align-items: center; gap: 5px; font-size: 18px;
+  display: flex; align-items: center; gap: 5px; font-size: 16px;
 }
 
 .btn-icon {
   background: none; border: none;
-  color: var(--text-main); font-size: 20px; cursor: pointer;
+  color: var(--text-main); font-size: 18px; cursor: pointer;
 }
 
 .progress-container {
@@ -105,7 +117,6 @@ body {
   transition: width 0.5s ease;
 }
 
-/* --- КАЛЕНДАРЬ --- */
 .calendar-wrapper { padding: 20px; }
 
 .calendar-header {
@@ -156,7 +167,6 @@ body {
 }
 .current-day .event-dot { background-color: var(--bg-color); box-shadow: none; }
 
-/* --- СПИСОК СОБЫТИЙ --- */
 .events-section {
   padding: 0 20px 20px; flex-grow: 1;
   overflow-y: auto;
@@ -168,7 +178,7 @@ body {
 
 .events-list {
   display: flex; flex-direction: column; gap: 12px;
-  padding-bottom: 80px; /* Чтобы FAB кнопка не перекрывала последнюю карточку */
+  padding-bottom: 80px;
 }
 
 .event-card {
@@ -176,15 +186,26 @@ body {
   border-left: 4px solid var(--accent);
   padding: 15px; border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  display: flex; flex-direction: column; gap: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
-.event-card h4 { font-size: 16px; color: var(--text-main); }
+.event-info { flex-grow: 1; cursor: pointer; }
+.event-card h4 { font-size: 16px; color: var(--text-main); margin-bottom: 5px; }
 .event-details { font-size: 13px; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
 .event-details i { color: var(--accent); }
 .empty-msg { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 20px; }
 
-/* --- FAB (КНОПКА ПЛЮС) --- */
+.delete-btn {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 18px; cursor: pointer; padding: 8px; border-radius: 6px; transition: 0.2s;
+}
+.delete-btn:hover {
+  color: #ff3333; background-color: rgba(255, 51, 51, 0.1); box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+}
+
 .fab {
   position: absolute; bottom: 30px; right: 30px;
   width: 60px; height: 60px; border-radius: 50%;
@@ -196,7 +217,6 @@ body {
 }
 .fab:hover { transform: scale(1.1); }
 
-/* --- МОДАЛЬНОЕ ОКНО (ФОРМА) --- */
 .modal-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
@@ -238,57 +258,17 @@ body {
   cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px var(--accent-glow); transition: 0.2s;
 }
 .btn-primary:active { transform: scale(0.98); }
-/* ====================================================
-   АДАПТИВНОСТЬ ПОД ПК / ПЛАНШЕТЫ (Экран шире 768px)
-==================================================== */
 
 @media (min-width: 768px) {
-  /* 1. Расширяем контейнер для экрана компьютера */
   .app-container {
-    max-width: 900px; /* Было 480px, стало широким */
-    height: auto;
-    min-height: 600px;
-    max-height: 90vh;
-    border-radius: 20px; /* Красивое скругление углов на ПК */
-    margin: 20px;
-    
-    /* 2. Включаем сетку из 2 колонок */
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr; /* Слева календарь пошире, справа события */
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      "header   header"
-      "calendar events";
+    max-width: 900px; height: auto; min-height: 600px; max-height: 90vh;
+    border-radius: 20px; margin: 20px; display: grid;
+    grid-template-columns: 1.1fr 0.9fr; grid-template-rows: auto 1fr;
+    grid-template-areas: "header header" "calendar events";
   }
-
-  /* 3. Распределяем блоки по колонкам */
-  .header {
-    grid-area: header;
-  }
-
-  .calendar-wrapper {
-    grid-area: calendar;
-    border-right: 1px solid var(--border-color); /* Разделительная полоса по центру */
-    padding: 30px;
-  }
-
-  .events-section {
-    grid-area: events;
-    padding: 30px;
-    overflow-y: auto;
-  }
-
-  /* 4. Увеличиваем цифры в календаре для удобства мышкой */
-  .day {
-    font-size: 18px;
-    border-radius: 14px;
-  }
-
-  /* 5. Кнопка + (FAB) становится удобнее в правом углу */
-  .fab {
-    bottom: 30px;
-    right: 30px;
-    width: 65px;
-    height: 65px;
-  }
+  .header { grid-area: header; }
+  .calendar-wrapper { grid-area: calendar; border-right: 1px solid var(--border-color); padding: 30px; }
+  .events-section { grid-area: events; padding: 30px; overflow-y: auto; }
+  .day { font-size: 18px; border-radius: 14px; }
+  .fab { bottom: 30px; right: 30px; width: 65px; height: 65px; }
 }
