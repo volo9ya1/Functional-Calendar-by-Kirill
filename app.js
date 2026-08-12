@@ -9,6 +9,30 @@ let currentLang = localStorage.getItem('lang') || 'ru';
 let events = JSON.parse(localStorage.getItem('calendarEvents')) || [];
 let selectedDateGlobal = new Date().toISOString().split('T')[0];
 
+// --- ИМЯ ПОЛЬЗОВАТЕЛЯ ---
+const userNameDisplay = document.getElementById('user-name-display');
+const savedName = localStorage.getItem('userName');
+if (savedName) {
+  userNameDisplay.textContent = savedName;
+}
+
+userNameDisplay.addEventListener('blur', () => {
+  const newName = userNameDisplay.textContent.trim();
+  if (newName !== '') {
+    localStorage.setItem('userName', newName);
+  } else {
+    userNameDisplay.textContent = 'Kirill';
+    localStorage.setItem('userName', 'Kirill');
+  }
+});
+
+userNameDisplay.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    userNameDisplay.blur();
+  }
+});
+
 // --- 1. ТЕМА И ИНИЦИАЛИЗАЦИЯ ---
 const themeToggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
@@ -35,7 +59,6 @@ themeToggleBtn.addEventListener('click', () => {
 function updateProgressBar() {
   const bar = document.getElementById('progress-bar');
   const total = events.length;
-  // Пример: считаем прогресс как % от 10 (можно настроить свою логику)
   const percent = Math.min(total * 10, 100); 
   if(bar) bar.style.width = `${percent}%`;
 }
