@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Functional Calendar by Kirill</title>
- <img src="Avatar.png" alt="Avatar" class="avatar-img" id="user-avatar">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,9 +14,11 @@
     <header class="header">
       <div class="header-top">
         <div class="user-info">
-          <!-- Аватарка теперь использует логотип -->
-          <img src="favicon.png" alt="Avatar" class="avatar-img" id="user-avatar">
-         <h1 class="app-title" id="user-name-display">Kirill <br><span>Functional-Calendar-by-Kirill</span></h1>
+          <img src="favicon.png" alt="Avatar" class="avatar-img" id="user-avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent);">
+          <div class="user-name-container">
+            <h1 class="app-title" id="user-name-display" contenteditable="true" title="Нажми, чтобы изменить имя">Kirill</h1>
+            <span>Functional-Calendar-by-Kirill</span>
+          </div>
         </div>
         
         <div class="header-actions">
@@ -33,7 +35,7 @@
       </div>
       
       <div class="progress-container">
-        <div class="progress-bar" id="progress-bar" style="width: 65%;"></div>
+        <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
       </div>
     </header>
 
